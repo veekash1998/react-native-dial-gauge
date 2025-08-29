@@ -1,0 +1,67 @@
+{
+  "name": "react-native-dial-gauge",
+  "version": "1.0.0",
+  "description": "A beautiful, customizable, and responsive circular dial gauge component for React Native with smooth animations",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "npm run build",
+    "build": "echo \"Build completed\"",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "keywords": [
+    "react-native",
+    "dial",
+    "gauge",
+    "circular",
+    "progress",
+    "meter",
+    "dashboard",
+    "animated",
+    "responsive",
+    "ios",
+    "android",
+    "expo"
+  ],
+  "author": {
+    "name": "Your Name",
+    "email": "your.email@example.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/react-native-dial-gauge.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/react-native-dial-gauge/issues"
+  },
+  "homepage": "https://github.com/yourusername/react-native-dial-gauge#readme",
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-native": ">=0.60.0",
+    "react-native-svg": ">=12.0.0",
+    "react-native-circular-progress": ">=1.3.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-native": "^0.72.0",
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.0.0"
+  },
+  "files": [
+    "index.js",
+    "index.jsx",
+    "index.d.ts",
+    "README.md",
+    "LICENSE",
+    "package.json",
+    "example.js"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "react-native": "index.js"
+}
