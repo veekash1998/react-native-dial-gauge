@@ -1,287 +1,292 @@
-# React Native Dial Gauge
+# React Native Dial Gauge 🚀 (v2.0)
 
-A beautiful, customizable, and responsive circular dial gauge component for React Native with smooth animations. Perfect for dashboards, meters, and data visualization.
+A high-performance, responsive, interactive, and customizable circular dial gauge and speedometer component for **React Native** and **Expo**. Built with smooth animations, pure SVG rendering, multiple visual styles, color threshold zones, and touch-drag interactivity.
 
-![React Native Dial Gauge Demo](https://via.placeholder.com/400x200/4CAF50/FFFFFF?text=Dial+Gauge+Demo)
+[![npm version](https://img.shields.io/npm/v/react-native-dial-gauge.svg)](https://www.npmjs.com/package/react-native-dial-gauge)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/yourusername/react-native-dial-gauge)
 
-## Features
+---
 
-- 🎨 **Fully Customizable** - Colors, sizes, text, and styling
-- 📱 **Responsive Design** - Automatically adapts to different screen sizes
-- ✨ **Smooth Animations** - Beautiful entrance and value change animations
-- 🎯 **Precise Control** - Configurable min/max values and decimal places
-- 📊 **Scale Marks** - Optional scale indicators with labels
-- 🎪 **Needle Indicator** - Animated needle pointer
-- 📱 **Cross Platform** - Works on iOS, Android, and Expo
-- 🔧 **TypeScript Support** - Full TypeScript definitions included
-- 🪶 **Lightweight** - Minimal dependencies
+## ✨ Features in v2.0
 
-## Installation
+- 🎯 **Multiple Gauge Variants**: Semi-circle (180°), Speedometer (270°), Full circle (360°), or custom start and sweep angles.
+- 👆 **Interactive User Controls**: Touch and drag needle / dial to adjust values dynamically with `onValueChange` and `onSlidingComplete`.
+- 🌈 **Multi-color Threshold Zones**: Define colored danger/warning/normal bands (e.g. green 0-60, orange 60-80, red 80-100).
+- 🎨 **SVG Gradients**: Beautiful gradient progress tracks with customizable multi-color stops.
+- 🎪 **Custom Needle Styles**: Tapered instrument needle, sharp triangle, minimalist line, orbital dot, or needle-less gauge.
+- 🔢 **Smooth Animated Counter**: Real-time 60fps numeric counter that counts up smoothly during value transitions.
+- 📱 **True Responsive Design**: Adapts dynamically across phones, tablets, split-screen, and screen rotations using dynamic dimensions.
+- 🛡️ **Zero Crash / NaN-Safe**: Fully protected against division by zero, invalid bounds, inverted ranges, and unmounted listeners.
+- 🪶 **Pure SVG Rendering**: Zero unmaintained wrapper dependencies; powered directly by `react-native-svg`.
+- 📘 **TypeScript & JSDoc**: Complete TypeScript definitions with autocompletion for all props and utility functions.
+
+---
+
+## 📦 Installation
 
 ```bash
 npm install react-native-dial-gauge
+# or
+yarn add react-native-dial-gauge
 ```
 
-### Peer Dependencies
+### Peer Dependency
 
-Make sure you have these peer dependencies installed:
+This library requires `react-native-svg`:
 
 ```bash
-npm install react-native-svg react-native-circular-progress
+# For Expo projects:
+npx expo install react-native-svg
+
+# For React Native CLI projects:
+npm install react-native-svg
+# (iOS CLI only):
+cd ios && pod install
 ```
 
-For Expo projects:
-```bash
-expo install react-native-svg react-native-circular-progress
-```
+> **Note for v1 users**: `react-native-circular-progress` is no longer required! `react-native-dial-gauge` v2 renders directly using native SVG for improved performance and reliability.
 
-For React Native CLI projects, you'll also need to follow the installation instructions for:
-- [react-native-svg](https://github.com/react-native-svg/react-native-svg)
-- [react-native-circular-progress](https://github.com/bartgryszko/react-native-circular-progress)
+---
 
-## Basic Usage
+## 🚀 Quick Start
+
+### 1. Basic Gauge
 
 ```jsx
 import React from 'react';
 import { View } from 'react-native';
 import CircularDialGauge from 'react-native-dial-gauge';
 
-const App = () => {
+export default function App() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <CircularDialGauge
         value={75}
-        maxValue={100}
         minValue={0}
+        maxValue={100}
         title="Battery Level"
         unit="%"
+        size={220}
       />
     </View>
   );
-};
-
-export default App;
+}
 ```
 
-## Advanced Usage
+---
+
+### 2. Interactive Gauge (Touch & Drag)
+
+Allow users to drag the needle or touch the dial to select a value:
 
 ```jsx
-import React, { useState, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text } from 'react-native';
 import CircularDialGauge from 'react-native-dial-gauge';
 
-const Dashboard = () => {
-  const [voltage, setVoltage] = useState(220);
-  const [current, setCurrent] = useState(15);
-
-  // Simulate real-time data updates
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setVoltage(200 + Math.random() * 50);
-      setCurrent(10 + Math.random() * 20);
-    }, 2000);
-
-    return () => clearInterval(interval);
-  }, []);
+export default function InteractiveDemo() {
+  const [val, setVal] = useState(50);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.gaugeRow}>
-        <CircularDialGauge
-          value={voltage}
-          maxValue={250}
-          minValue={200}
-          title="AC Voltage"
-          unit="V"
-          color="#FF6B35"
-          width={180}
-          height={140}
-          decimalPlaces={1}
-          animationDuration={800}
-          containerStyle={styles.gaugeContainer}
-        />
-        
-        <CircularDialGauge
-          value={current}
-          maxValue={32}
-          minValue={0}
-          title="AC Current"
-          unit="A"
-          color="#4ECDC4"
-          width={180}
-          height={140}
-          decimalPlaces={2}
-          showScale={true}
-          showNeedle={true}
-          containerStyle={styles.gaugeContainer}
-        />
-      </View>
+    <View style={{ alignItems: 'center', padding: 20 }}>
+      <CircularDialGauge
+        value={val}
+        minValue={0}
+        maxValue={100}
+        size={240}
+        title="User Control"
+        unit="%"
+        color="#6366F1"
+        interactive={true}
+        step={1}
+        needleType="triangle"
+        onValueChange={(newVal) => setVal(newVal)}
+        onSlidingComplete={(finalVal) => console.log('Finished at:', finalVal)}
+      />
+      <Text style={{ marginTop: 10 }}>Selected Value: {val}%</Text>
     </View>
   );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5',
-  },
-  gaugeRow: {
-    flexDirection: 'row',
-    gap: 20,
-  },
-  gaugeContainer: {
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 20,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-});
-
-export default Dashboard;
+}
 ```
 
-## Props
+---
+
+### 3. Automotive Speedometer with Color Zones
+
+```jsx
+import React from 'react';
+import CircularDialGauge from 'react-native-dial-gauge';
+
+export default function SpeedometerDemo() {
+  return (
+    <CircularDialGauge
+      variant="speedometer"
+      value={85}
+      minValue={0}
+      maxValue={160}
+      title="Speed"
+      unit="km/h"
+      size={260}
+      needleType="needle"
+      needleColor="#1E293B"
+      ranges={[
+        { from: 0, to: 80, color: '#10B981', label: 'Safe' },
+        { from: 80, to: 120, color: '#F59E0B', label: 'Warning' },
+        { from: 120, to: 160, color: '#EF4444', label: 'Danger' },
+      ]}
+      majorTickCount={9}
+      minorTicksPerInterval={3}
+    />
+  );
+}
+```
+
+---
+
+### 4. Modern Linear Gradient Arc
+
+```jsx
+import React from 'react';
+import CircularDialGauge from 'react-native-dial-gauge';
+
+export default function GradientDemo() {
+  return (
+    <CircularDialGauge
+      value={88}
+      title="Performance"
+      unit="pts"
+      size={220}
+      gradientColors={['#06B6D4', '#10B981']}
+      needleType="needle"
+      needleColor="#0891B2"
+    />
+  );
+}
+```
+
+---
+
+### 5. 360° Circular Activity Ring
+
+```jsx
+import React from 'react';
+import CircularDialGauge from 'react-native-dial-gauge';
+
+export default function ActivityRingDemo() {
+  return (
+    <CircularDialGauge
+      variant="circle"
+      value={38.5}
+      minValue={0}
+      maxValue={50}
+      title="Daily Goal"
+      unit="km"
+      size={200}
+      color="#EC4899"
+      backgroundColor="#FCE7F3"
+      needleType="dot"
+      showScale={false}
+    />
+  );
+}
+```
+
+---
+
+## ⚙️ Props Reference
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `value` | `number` | `0` | Current value to display |
-| `maxValue` | `number` | `100` | Maximum value of the gauge |
-| `minValue` | `number` | `0` | Minimum value of the gauge |
-| `title` | `string` | `"Value"` | Title text displayed below the gauge |
-| `unit` | `string` | `""` | Unit text displayed with the value |
-| `size` | `number` | `responsive` | Size of the gauge (overridden by width/height) |
-| `width` | `number` | `responsive` | Width of the gauge container |
-| `height` | `number` | `responsive` | Height of the gauge container |
-| `color` | `string` | `"#4CAF50"` | Primary color for the gauge |
-| `backgroundColor` | `string` | `"#E0E0E0"` | Background color of the gauge track |
-| `textColor` | `string` | `"#333333"` | Color for primary text elements |
-| `secondaryTextColor` | `string` | `"#666666"` | Color for secondary text elements |
-| `strokeWidth` | `number` | `responsive` | Width of the progress stroke |
-| `animationDuration` | `number` | `1200` | Duration of animations in milliseconds |
-| `showScale` | `boolean` | `true` | Whether to show scale marks |
-| `showNeedle` | `boolean` | `true` | Whether to show the needle indicator |
-| `decimalPlaces` | `number` | `1` | Number of decimal places for value display |
-| `containerStyle` | `ViewStyle` | `{}` | Additional styles for the container |
-| `titleStyle` | `TextStyle` | `{}` | Additional styles for the title text |
-| `valueStyle` | `TextStyle` | `{}` | Additional styles for the value text |
+| `minValue` | `number` | `0` | Minimum gauge value |
+| `maxValue` | `number` | `100` | Maximum gauge value |
+| `variant` | `'semicircle' \| 'speedometer' \| 'circle' \| 'custom'` | `'semicircle'` | Gauge visual style and default geometry |
+| `size` | `number` | `responsive` | Diameter/size base for the gauge |
+| `width` | `number` | `responsive` | Explicit container width |
+| `height` | `number` | `responsive` | Explicit container height |
+| `startAngle` | `number` | *(variant dependent)* | Custom starting angle in degrees |
+| `sweepAngle` | `number` | *(variant dependent)* | Custom arc sweep angle in degrees |
+| `color` | `string` | `"#4CAF50"` | Primary progress track color |
+| `backgroundColor` | `string` | `"#E0E0E0"` | Background track color |
+| `textColor` | `string` | `"#333333"` | Color for value text |
+| `secondaryTextColor` | `string` | `"#666666"` | Color for title and scale labels |
+| `title` | `string` | `"Value"` | Title displayed below the value |
+| `unit` | `string` | `""` | Unit text displayed with value (e.g. `km/h`, `°C`) |
+| `valuePrefix` | `string` | `""` | Prefix before value (e.g. `$`) |
+| `decimalPlaces` | `number` | `1` | Number of decimal places |
+| `valueFormatter` | `(val: number) => string` | `undefined` | Custom formatter for displayed value |
+| `renderCenterContent`| `(animVal, val) => ReactNode` | `undefined` | Custom renderer for gauge center |
+| `animated` | `boolean` | `true` | Whether to animate transitions |
+| `animationDuration` | `number` | `1000` | Animation duration in milliseconds |
+| `animationEasing` | `'easeOut' \| 'linear' \| 'spring'` | `'easeOut'` | Easing curve for animation |
+| `showNeedle` | `boolean` | `true` | Show/hide the needle |
+| `needleType` | `'needle' \| 'triangle' \| 'line' \| 'dot' \| 'none'` | `'needle'` | Needle indicator shape |
+| `needleColor` | `string` | *(matches track)* | Color of the needle |
+| `needleLength` | `number` | `responsive` | Length of needle in pixels |
+| `needleWidth` | `number` | `responsive` | Width of needle base |
+| `showHub` | `boolean` | `true` | Show center hub circle |
+| `hubRadius` | `number` | `responsive` | Radius of center hub cap |
+| `hubColor` | `string` | *(matches needle)* | Fill color of center hub |
+| `renderNeedle` | `(params) => ReactNode` | `undefined` | Custom renderer for the needle |
+| `showScale` | `boolean` | `true` | Show/hide scale tick marks and labels |
+| `majorTickCount` | `number` | `5` | Number of major tick marks |
+| `minorTicksPerInterval` | `number` | `3` | Minor ticks between major ticks |
+| `majorTickColor` | `string` | `secondaryTextColor` | Color of major tick marks |
+| `minorTickColor` | `string` | `backgroundColor` | Color of minor tick marks |
+| `showTickLabels` | `boolean` | `true` | Show numeric labels on major ticks |
+| `tickLabelFormatter` | `(val: number) => string` | `undefined` | Custom formatter for tick labels |
+| `ranges` | `DialGaugeRange[]` | `undefined` | Color-coded threshold segments |
+| `gradientColors` | `string[]` | `undefined` | Array of colors for linear gradient arc |
+| `interactive` | `boolean` | `false` | Enable touch and drag interactivity |
+| `onValueChange` | `(val: number) => void` | `undefined` | Called continuously while dragging |
+| `onSlidingComplete` | `(val: number) => void` | `undefined` | Called when touch gesture finishes |
+| `step` | `number` | `undefined` | Value increment step for interactive dragging |
+| `disabled` | `boolean` | `false` | Disable touch interaction |
+| `containerStyle` | `ViewStyle` | `{}` | Container style override |
+| `titleStyle` | `TextStyle` | `{}` | Title text style override |
+| `valueStyle` | `TextStyle` | `{}` | Value text style override |
+| `unitStyle` | `TextStyle` | `{}` | Unit text style override |
 
-## Responsive Design
+---
 
-The component automatically adapts to different screen sizes:
+## 🧪 Unit Testing
 
-- **Phone**: Optimized for smaller screens
-- **Tablet**: Larger gauges with better spacing
-- **Custom Sizes**: Use `width` and `height` props for precise control
+Run the included automated unit test suite:
 
-## Customization Examples
-
-### Custom Colors and Styling
-
-```jsx
-<CircularDialGauge
-  value={85}
-  maxValue={100}
-  title="Performance"
-  unit="%"
-  color="#FF6B35"
-  backgroundColor="#FFF3E0"
-  textColor="#D84315"
-  secondaryTextColor="#FF8A65"
-  containerStyle={{
-    backgroundColor: '#FFEBEE',
-    borderRadius: 25,
-    padding: 20,
-  }}
-  titleStyle={{
-    fontWeight: 'bold',
-    fontSize: 16,
-  }}
-  valueStyle={{
-    fontWeight: '900',
-    fontSize: 20,
-  }}
-/>
+```bash
+npm test
 ```
 
-### Minimal Design
+The test suite tests:
+- Trigonometry & coordinates mapping (`polarToCartesian`, `describeArc`).
+- Touch-to-angle conversion and value clamping.
+- Tick mark calculations (major/minor ticks, labels).
+- Edge cases (division by zero, inverted bounds, NaN handling).
+- React Native component rendering with all prop variations.
 
-```jsx
-<CircularDialGauge
-  value={42}
-  maxValue={100}
-  title="Progress"
-  showScale={false}
-  showNeedle={false}
-  color="#6C5CE7"
-  backgroundColor="#DDD6FE"
-  animationDuration={2000}
-/>
-```
+---
 
-### High Precision Gauge
+## 📝 Changelog
 
-```jsx
-<CircularDialGauge
-  value={23.456}
-  maxValue={50}
-  minValue={0}
-  title="Temperature"
-  unit="°C"
-  decimalPlaces={3}
-  color="#E17055"
-  strokeWidth={12}
-/>
-```
+### v2.0.0 (Major Release)
+- 🐛 **Fixed critical bug**: `showScale` and `showNeedle` are now properly rendered in the published entry point (`index.js`).
+- 🐛 **Fixed critical bug**: The `size` prop is now properly respected and correctly scales width and height.
+- 🐛 **Fixed critical bug**: Value display now smoothly animates and counts up at 60fps instead of reading private `_value`.
+- 🐛 **Fixed critical bug**: Eliminated crashes and `NaN` errors when `minValue === maxValue` or invalid bounds are passed.
+- 🐛 **Fixed needle positioning bug**: Needle rotates around the exact geometric center without magic negative offsets.
+- 🚀 **New Feature**: Added user interactivity with touch and drag support (`interactive`, `onValueChange`, `onSlidingComplete`, `step`).
+- 🚀 **New Feature**: Added gauge variants: `semicircle` (180°), `speedometer` (270°), and `circle` (360°).
+- 🚀 **New Feature**: Added multi-color threshold zones (`ranges`).
+- 🚀 **New Feature**: Added SVG linear gradient progress tracks (`gradientColors`).
+- 🚀 **New Feature**: Added customizable needle types (`needle`, `triangle`, `line`, `dot`, `none`).
+- 🚀 **New Feature**: Added responsive auto-scaling with dynamic window dimension detection.
+- 🪶 **Dependency overhaul**: Removed unmaintained `react-native-circular-progress` dependency; now uses standard `react-native-svg`.
+- 🧪 **Testing**: Added comprehensive automated unit tests.
+- 📘 **TypeScript**: Updated TypeScript definitions (`index.d.ts`) covering all v2 props and types.
 
-## Performance Tips
+---
 
-1. **Avoid Frequent Updates**: For real-time data, consider throttling updates to avoid excessive re-renders
-2. **Use Stable References**: Pass stable objects for style props to prevent unnecessary re-renders
-3. **Optimize Animation Duration**: Shorter durations for frequent updates, longer for dramatic changes
+## 📄 License
 
-## Troubleshooting
-
-### Common Issues
-
-1. **Gauge not showing**: Make sure `react-native-svg` is properly installed and linked
-2. **Animation not smooth**: Check if you're running in debug mode, animations are smoother in release builds
-3. **Size issues**: Use specific `width` and `height` props instead of relying on auto-sizing
-
-### Platform-Specific Notes
-
-- **iOS**: Works out of the box with proper SVG setup
-- **Android**: Ensure SVG is properly configured in your build
-- **Expo**: Use `expo install` for dependencies
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Changelog
-
-### 1.0.0
-- Initial release
-- Basic circular dial gauge functionality
-- Responsive design
-- Smooth animations
-- TypeScript support
-- Comprehensive customization options
-
-## Support
-
-If you like this package, please consider giving it a ⭐ on GitHub!
-
-For issues and feature requests, please use the [GitHub Issues](https://github.com/yourusername/react-native-dial-gauge/issues) page.
+MIT © Your Name

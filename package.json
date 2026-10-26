@@ -1,11 +1,11 @@
 {
   "name": "react-native-dial-gauge",
-  "version": "1.0.0",
-  "description": "A beautiful, customizable, and responsive circular dial gauge component for React Native with smooth animations",
+  "version": "2.0.0",
+  "description": "A modern, responsive, interactive, and customizable circular dial gauge and speedometer component for React Native with smooth animations",
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --test test/dialGauge.test.js && node test.js",
     "prepare": "npm run build",
     "build": "echo \"Build completed\"",
     "lint": "eslint .",
@@ -15,12 +15,15 @@
     "react-native",
     "dial",
     "gauge",
+    "speedometer",
     "circular",
     "progress",
     "meter",
     "dashboard",
     "animated",
     "responsive",
+    "interactive",
+    "slider",
     "ios",
     "android",
     "expo"
@@ -41,14 +44,20 @@
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-native": ">=0.60.0",
-    "react-native-svg": ">=12.0.0",
-    "react-native-circular-progress": ">=1.3.0"
+    "react-native-svg": ">=12.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react-native-circular-progress": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@types/react": "^18.0.0",
     "@types/react-native": "^0.72.0",
     "eslint": "^8.0.0",
     "prettier": "^3.0.0",
+    "react": "^18.3.1",
+    "react-native-svg": "^15.16.0",
     "typescript": "^5.0.0"
   },
   "files": [
